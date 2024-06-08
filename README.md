@@ -86,3 +86,30 @@
 
 By following these steps, you will create a new client in Keycloak, configure it with the specified valid redirect URL, enable client authentication, and obtain the client credentials required for your application to authenticate and interact with Keycloak. Ensure that you securely store the client secret and configure your application to use it when communicating with Keycloak.
 
+## Integrating with Cloudflare as an IDP:
+
+https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/generic-oidc/
+
+1> Find openid-config
+
+```arduino
+http://10.0.0.162:8080/realms/master/.well-known/openid-configuration
+```
+
+Answer:
+
+
+```arduino
+Client ID
+Client secret
+Auth URL: https://keycloak.arunblog.org/realms/master/protocol/openid-connect/auth
+Token URL: https://keycloak.arunblog.org/realms/master/protocol/openid-connect/token
+Certificate URL: The jwks_uri endpoint of your IdP to allow the IdP keys to sign the tokens
+ "jwks_uri": "https://keycloak.arunblog.org/realms/master/protocol/openid-connect/certs
+```
+
+```arduino
+"authorization_endpoint": "https://keycloak.arunblog.org/realms/myrealm/protocol/openid-connect/auth",
+"token_endpoint": "https://keycloak.arunblog.org/realms/myrealm/protocol/openid-connect/token",
+"jwks_uri": "https://keycloak.arunblog.org/realms/myrealm/protocol/openid-connect/certs"
+```
