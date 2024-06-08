@@ -169,14 +169,9 @@ Answer:
 ```arduino
 Client ID
 Client secret
-Auth URL: https://keycloak.arunblog.org/realms/master/protocol/openid-connect/auth
-Token URL: https://keycloak.arunblog.org/realms/master/protocol/openid-connect/token
+Auth URL: http://10.0.0.162:8080/realms/myrealm/protocol/openid-connect/auth
+Token URL: http://10.0.0.162:8080/realms/myrealm/protocol/openid-connect/token
 Certificate URL: The jwks_uri endpoint of your IdP to allow the IdP keys to sign the tokens
- "jwks_uri": "https://keycloak.arunblog.org/realms/master/protocol/openid-connect/certs
+ "jwks_uri": "http://10.0.0.162:8080/realms/myrealm/protocol/openid-connect/certs
 ```
 
-```arduino
-"authorization_endpoint": "https://keycloak.arunblog.org/realms/myrealm/protocol/openid-connect/auth",
-"token_endpoint": "https://keycloak.arunblog.org/realms/myrealm/protocol/openid-connect/token",
-"jwks_uri": "https://keycloak.arunblog.org/realms/myrealm/protocol/openid-connect/certs"
-```
