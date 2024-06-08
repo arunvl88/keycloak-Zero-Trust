@@ -232,4 +232,123 @@ Navigate to ZT Dashboard > Settings > Authentication > Edit the keycloak OIDC co
 
 <img width="661" alt="image" src="https://github.com/arunvl88/keycloak-Zero-Trust/assets/7003647/ee816aa9-37e9-4d33-9aea-8b66df8e147e">
 
+### **Troubleshooting**
 
+If there is any integration issue between Cloudflare and Keycloak. You want to test locally using Python flask app, follow the steps below.
+
+### **1. Keycloak Client Configuration**
+
+Ensure your Keycloak client is configured with the correct redirect URI pointing to your local Flask server.
+
+1. **Navigate to the Keycloak Admin Console**.
+2. **Select the appropriate realm**.
+3. **Go to Clients** and select your client.
+4. **Set the Redirect URI** to:
+    
+    ```arduino
+    http://localhost:5000/callback
+    
+    ```
+    
+5. Web origin to [`http://localhost:5000`](http://localhost:5000/)
+
+### **2. Flask App Configuration**
+
+Update your Flask app to handle the OAuth flow with Keycloak. Ensure the redirect URI in your app matches the one registered in Keycloak.
+
+### **Flask App Code**
+
+Here is the updated Flask app code:
+
+```python
+pythonCopy code
+from flask import Flask, redirect, request, jsonify
+import requests
+
+app = Flask(__name__)
+
+# Configuration
+CLIENT_ID = 'your_client_id'
+CLIENT_SECRET = 'your_client_secret'
+AUTH_URL = 'https://keycloak.example.org/realms/myrealm/protocol/openid-connect/auth'
+TOKEN_URL = 'https://keycloak.example.org/realms/myrealm/protocol/openid-connect/token'
+USERINFO_URL = 'https://keycloak.example.org/realms/myrealm/protocol/openid-connect/userinfo'
+REDIRECT_URI = 'http://localhost:5000/callback'
+SCOPES = 'openid email profile'
+
+# Routes
+@app.route('/')
+def home():
+    # Redirect user to Keycloak's OAuth 2.0 server
+    auth_endpoint = f'{AUTH_URL}?response_type=code&client_id={CLIENT_ID}&redirect_uri={REDIRECT_URI}&scope={SCOPES}'
+    return redirect(auth_endpoint)
+
+@app.route('/callback')
+def callback():
+    # Get authorization code from callback URL
+    code = request.args.get('code')
+
+    # Exchange authorization code for access token
+    token_data = {
+        'grant_type': 'authorization_code',
+        'code': code,
+        'redirect_uri': REDIRECT_URI,
+        'client_id': CLIENT_ID,
+        'client_secret': CLIENT_SECRET
+    }
+    token_response = requests.post(TOKEN_URL, data=token_data)
+    token_json = token_response.json()
+
+    # Extract access token
+    access_token = token_json.get('access_token')
+    if not access_token:
+        return jsonify({'error': 'Failed to get access token', 'details': token_json}), 400
+
+    # Fetch user info
+    user_info_response = requests.get(USERINFO_URL, headers={'Authorization': f'Bearer {access_token}'})
+    user_info_json = user_info_response.json()
+
+    # Return user info and token details
+    return jsonify({
+        'access_token': token_json,
+        'user_info': user_info_json
+    })
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+```
+
+Replace **`your_client_id`** and **`your_client_secret`** with your actual client ID and client secret from Keycloak.
+
+### **3. Running the Flask App**
+
+Start the Flask app:
+
+```
+shCopy code
+python app.py
+
+```
+
+### **4. Testing the OAuth Flow**
+
+1. **Open your browser** and navigate to **`http://localhost:5000`**.
+2. **You will be redirected to Keycloak** for authentication.
+3. **After authenticating**, Keycloak will redirect you back to **`http://localhost:5000/callback`** with an authorization code.
+4. **Flask app will exchange the authorization code** for an access token and fetch user information.
+
+### **Technical Explanation**
+
+### **OAuth Flow with Flask App**
+
+1. **User Request**: User accesses the Flask app at **`http://localhost:5000`**.
+2. **Redirect to Keycloak**: Flask app redirects the user to Keycloak’s authorization endpoint to authenticate.
+3. **Authorization Code**: After successful authentication, Keycloak redirects the user back to the Flask app with an authorization code.
+4. **Token Exchange**: Flask app exchanges the authorization code for an access token by making a POST request to Keycloak’s token endpoint.
+5. **Fetch User Info**: Flask app uses the access token to fetch user information from Keycloak’s user info endpoint.
+6. **Display Information**: Flask app displays the user information and token details.
+
+### **Summary**
+
+By following these steps, you can test the OAuth integration with Keycloak using a local Flask app without involving Cloudflare. This allows you to ensure that the OAuth flow works correctly and that you can successfully fetch user information using the obtained access token.
