@@ -1,6 +1,80 @@
 This documentation provides a step-by-step guide on setting up Docker on an Ubuntu system, deploying Keycloak as a Docker container, and integrating Keycloak with Cloudflare Access. Keycloak is an open-source identity and access management solution that enables secure authentication and authorization for applications and services. Cloudflare Access, part of Cloudflare’s Zero Trust platform, secures your internal applications without the need for a VPN, providing seamless, identity-based access control. By following this guide, you will learn how to install and configure Docker, deploy Keycloak as a container, and integrate Keycloak as an identity provider (IdP) with Cloudflare Access to enhance the security and accessibility of your applications. This integration will ensure that only authenticated users can access your protected resources, leveraging the power of both Keycloak’s comprehensive identity management capabilities and Cloudflare’s advanced security features.
 
-### **Steps to Deploy**
+### **Steps to Install Docker on Ubuntu**
+
+### **Step 1: Update Your System**
+
+Before installing Docker, it's important to update your package list and install necessary dependencies.
+
+```bash
+sudo apt-get update
+sudo apt-get upgrade
+
+```
+
+### **Step 2: Install Required Packages**
+
+Install packages that allow apt to use a repository over HTTPS.
+
+```bash
+sudo apt-get install apt-transport-https ca-certificates curl software-properties-common
+
+```
+
+### **Step 3: Add Docker’s Official GPG Key**
+
+Add Docker's official GPG key to your system.
+
+```bash
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+```
+
+### **Step 4: Add Docker Repository**
+
+Add the Docker repository to your APT sources.
+
+```bash
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+```
+
+### **Step 5: Update Package Database**
+
+Update the package database with the Docker packages from the newly added repo.
+
+```bash
+sudo apt-get update
+
+```
+
+### **Step 6: Install Docker**
+
+Now, install Docker.
+
+```bash
+sudo apt-get install docker-ce docker-ce-cli containerd.io
+
+```
+
+### **Step 7: Verify Docker Installation**
+
+Check the Docker version to verify the installation.
+
+```bash
+docker --version
+
+```
+
+You should see output similar to:
+
+```
+Docker version 20.10.7, build f0df350
+
+```
+
+
+### **Steps to Deploy Keycloak**
 
 1. **Remove Previous Containers and Volumes**
     
@@ -8,15 +82,6 @@ This documentation provides a step-by-step guide on setting up Docker on an Ubun
     
     ```bash
     sudo docker-compose down -v
-    
-    ```
-    
-2. **Clean Up Any Existing PostgreSQL Data Directory**
-    
-    Ensure the old PostgreSQL data directory is removed:
-    
-    ```bash
-    sudo rm -rf /home/arun/docker/keycloak/postgresql_data
     
     ```
     
