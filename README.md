@@ -14,7 +14,6 @@
     Ensure the old PostgreSQL data directory is removed:
     
     ```bash
-    bashCopy code
     sudo rm -rf /home/arun/docker/keycloak/postgresql_data
     
     ```
@@ -24,7 +23,6 @@
     Start the containers with the updated configuration:
     
     ```bash
-    bashCopy code
     sudo docker-compose up -d
     
     ```
