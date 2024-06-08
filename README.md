@@ -225,3 +225,11 @@ With everything we have configured so far, cloudflare can authenticate users cre
 5. **Test the Configuration**:
     - Ensure the Flask app or your OAuth flow setup is updated to request the new scope if necessary.
     - Follow the usual steps to obtain the token.
+  
+
+### **Also add 'groups' as OIDC claims on Cloudflare Zero Trust dashboard:**
+Navigate to ZT Dashboard > Settings > Authentication > Edit the keycloak OIDC connection:
+
+<img width="661" alt="image" src="https://github.com/arunvl88/keycloak-Zero-Trust/assets/7003647/ee816aa9-37e9-4d33-9aea-8b66df8e147e">
+<img width="661" alt="image" src="https://github.com/arunvl88/keycloak-Zero-Trust/assets/7003647/ee816aa9-37e9-4d33-9aea-8b66df8e147e">
+
