@@ -29,4 +29,13 @@
     
 4. **Check the Logs**
     
-    Monitor the logs for PostgreSQL and Keycloak to ensure they start correctly:# keycloak-Zero-Trust
+    Monitor the logs for PostgreSQL and Keycloak to ensure they start correctly:
+
+    ```bash
+    sudo docker-compose logs -f postgres
+    sudo docker-compose logs -f keycloak
+
+    ```
+
+
+
