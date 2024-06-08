@@ -261,7 +261,6 @@ Update your Flask app to handle the OAuth flow with Keycloak. Ensure the redirec
 Here is the updated Flask app code:
 
 ```python
-pythonCopy code
 from flask import Flask, redirect, request, jsonify
 import requests
 
