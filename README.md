@@ -155,9 +155,9 @@ By following these steps, you will create a new client in Keycloak, configure it
 
 ## Integrating with Cloudflare as an IDP:
 
-https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/generic-oidc/
 
 1> Find openid-config
+From the below link you can obtain Auth URL, Token URL, and Certificate URL. Client ID and Client secret were already otained in the previous step.
 
 ```arduino
 http://10.0.0.162:8080/realms/master/.well-known/openid-configuration
@@ -174,4 +174,7 @@ Token URL: http://10.0.0.162:8080/realms/myrealm/protocol/openid-connect/token
 Certificate URL: The jwks_uri endpoint of your IdP to allow the IdP keys to sign the tokens
  "jwks_uri": "http://10.0.0.162:8080/realms/myrealm/protocol/openid-connect/certs
 ```
+
+2> Follow the steps below, use the 5 variables (Auth URL, Token URL, Certificate URL, Client ID and Client secret) obtained above to configure generic-OIDC connection on Cloudflare Access using the below documentation:
+https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/generic-oidc/
 
