@@ -189,3 +189,39 @@ Certificate URL: The jwks_uri endpoint of your IdP to allow the IdP keys to sign
 
 3> Follow the steps below, use the 5 variables (Auth URL, Token URL, Certificate URL, Client ID and Client secret) obtained above to configure generic-OIDC connection on Cloudflare Access using the below documentation:
 https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/generic-oidc/
+
+### **Steps to Add Group Information to Token (client scope) in Keycloak**
+
+With everything we have configured so far, cloudflare can authenticate users created on the keycloak IDP. However, it won't fetch the users group information to create any Cloudflare Access related policies. In roder for Cloudflare to fetch users group information, we need to ad groups to the client scope in keycloak:
+
+1. **Create a Client Scope**:
+    - Log in to the Keycloak Admin Console.
+    - Select the realm where your application resides.
+    - Navigate to **`Client Scopes`** from the left-hand menu.
+    - Click on **`Create`**.
+2. **Configure the Client Scope**:
+    - Provide a name for the client scope, e.g., **`group-scope`**.
+    - Click **`Save`**.
+3. **Add a Protocol Mapper to the Client Scope**:
+    - After saving, you will be redirected to the client scope settings.
+    - Go to the **`Mappers`** tab.
+    - Click on **`Configure new mapper`**.
+    - Select `Group Membership`
+    - Configure the mapper as follows:
+        - **Name**: **`groups`**
+        - **Mapper Type**: **`Group Membership`**
+        - **Token Claim Name**: **`groups`**
+        - **Full group path**: Choose based on whether you want full paths or just group names.
+        - **Add to ID token**: On
+        - **Add to access token**: On
+        - **Add to userinfo**: On
+    - Click **`Save`**.
+4. **Assign the Client Scope to Your Client**:
+    - Go to **`Clients`** from the left-hand menu.
+    - Select your client (the one Cloudflare Access uses).
+    - Go to the **`Client Scopes`** tab.
+    - In the **`Assigned Default Client Scopes`** section, click on **`Add client scope`**.
+    - Select **`group-scope`** and click **`Add`**.
+5. **Test the Configuration**:
+    - Ensure the Flask app or your OAuth flow setup is updated to request the new scope if necessary.
+    - Follow the usual steps to obtain the token.
