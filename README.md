@@ -175,6 +175,17 @@ Certificate URL: The jwks_uri endpoint of your IdP to allow the IdP keys to sign
  "jwks_uri": "http://10.0.0.162:8080/realms/myrealm/protocol/openid-connect/certs
 ```
 
-2> Follow the steps below, use the 5 variables (Auth URL, Token URL, Certificate URL, Client ID and Client secret) obtained above to configure generic-OIDC connection on Cloudflare Access using the below documentation:
-https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/generic-oidc/
+2> As you can from step 1, the opendid-configurtaion for keycloak provides my local IP. With Cloudflare Tunnel, you can expose your HTTP resources to the Internet via a public hostname.  
+https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/routing-to-tunnel/
 
+```arduino
+Client ID
+Client secret
+Auth URL: http://keycloak.example.com/realms/myrealm/protocol/openid-connect/auth
+Token URL: http://keycloak.example.com/realms/myrealm/protocol/openid-connect/token
+Certificate URL: The jwks_uri endpoint of your IdP to allow the IdP keys to sign the tokens
+ "jwks_uri": "http://keycloak.example.com/realms/myrealm/protocol/openid-connect/certs
+```
+
+3> Follow the steps below, use the 5 variables (Auth URL, Token URL, Certificate URL, Client ID and Client secret) obtained above to configure generic-OIDC connection on Cloudflare Access using the below documentation:
+https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/generic-oidc/
