@@ -1,3 +1,5 @@
+This documentation provides a step-by-step guide on setting up Docker on an Ubuntu system, deploying Keycloak as a Docker container, and integrating Keycloak with Cloudflare Access. Keycloak is an open-source identity and access management solution that enables secure authentication and authorization for applications and services. Cloudflare Access, part of Cloudflare’s Zero Trust platform, secures your internal applications without the need for a VPN, providing seamless, identity-based access control. By following this guide, you will learn how to install and configure Docker, deploy Keycloak as a container, and integrate Keycloak as an identity provider (IdP) with Cloudflare Access to enhance the security and accessibility of your applications. This integration will ensure that only authenticated users can access your protected resources, leveraging the power of both Keycloak’s comprehensive identity management capabilities and Cloudflare’s advanced security features.
+
 ### **Steps to Deploy**
 
 1. **Remove Previous Containers and Volumes**
