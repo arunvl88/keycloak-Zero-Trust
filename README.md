@@ -231,5 +231,5 @@ With everything we have configured so far, cloudflare can authenticate users cre
 Navigate to ZT Dashboard > Settings > Authentication > Edit the keycloak OIDC connection:
 
 <img width="661" alt="image" src="https://github.com/arunvl88/keycloak-Zero-Trust/assets/7003647/ee816aa9-37e9-4d33-9aea-8b66df8e147e">
-<img width="661" alt="image" src="https://github.com/arunvl88/keycloak-Zero-Trust/assets/7003647/ee816aa9-37e9-4d33-9aea-8b66df8e147e">
+
 
