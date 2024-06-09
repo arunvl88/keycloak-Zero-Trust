@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 # Configuration
 CLIENT_ID = 'Cloudflare-client'
-CLIENT_SECRET = '1S4WeJIgRkThAP6MqzFO6eLyaCYGXDQr'
+CLIENT_SECRET = <client_secret>
 AUTH_URL = 'https://keycloak.arunblog.org/realms/myrealm/protocol/openid-connect/auth'
 TOKEN_URL = 'https://keycloak.arunblog.org/realms/myrealm/protocol/openid-connect/token'
 USERINFO_URL = 'https://keycloak.arunblog.org/realms/myrealm/protocol/openid-connect/userinfo'
