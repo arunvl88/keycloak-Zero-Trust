@@ -351,3 +351,106 @@ python app.py
 ### **Summary**
 
 By following these steps, you can test the OAuth integration with Keycloak using a local Flask app without involving Cloudflare. This allows you to ensure that the OAuth flow works correctly and that you can successfully fetch user information using the obtained access token.
+
+### Troubleshooting Docker Containers
+
+If you encounter any issues with your Docker containers, such as services not starting or unexpected behavior, the following steps will help you diagnose and resolve the problem. This section provides guidance on checking the status of Docker containers and viewing their logs.
+
+### Step 1: Check Running Containers
+
+To see which Docker containers are currently running, use the following command:
+
+```bash
+sudo docker ps
+
+```
+
+This command will list all running containers, along with their container ID, image, command, creation time, status, ports, and names.
+
+### Step 2: Check All Containers (Running and Stopped)
+
+To view all containers, including those that are stopped, use the following command:
+
+```bash
+sudo docker ps -a
+
+```
+
+This will display the status of all containers on your system.
+
+### Step 3: Check Container Logs
+
+To view the logs of a specific container, use the `docker logs` command followed by the container ID or name. For example:
+
+```bash
+sudo docker logs <container_id_or_name>
+
+```
+
+Replace `<container_id_or_name>` with the actual container ID or name from the `docker ps` output.
+
+### Step 4: Follow Container Logs in Real-Time
+
+If you want to monitor the logs of a container in real-time, use the `-f` (follow) flag with the `docker logs` command:
+
+```bash
+sudo docker logs -f <container_id_or_name>
+
+```
+
+This will continuously display new log entries as they are generated.
+
+### Step 5: Inspect Container Details
+
+To get detailed information about a specific container, use the `docker inspect` command:
+
+```bash
+sudo docker inspect <container_id_or_name>
+
+```
+
+This will provide a comprehensive JSON output with details about the container's configuration, state, network settings, and more.
+
+### Step 6: Check Docker Service Status
+
+Ensure that the Docker service is running correctly. You can check the status of the Docker service with the following command:
+
+```bash
+sudo systemctl status docker
+
+```
+
+If the service is not running, you can start it with:
+
+```bash
+sudo systemctl start docker
+
+```
+
+To enable the Docker service to start automatically at boot, use:
+
+```bash
+sudo systemctl enable docker
+
+```
+
+### Step 7: Restart a Docker Container
+
+If a container is not behaving as expected, you can try restarting it:
+
+```bash
+sudo docker restart <container_id_or_name>
+
+```
+
+### Step 8: Remove and Recreate a Container
+
+If restarting the container does not resolve the issue, you can remove and recreate the container. First, stop and remove the container:
+
+```bash
+sudo docker stop <container_id_or_name>
+sudo docker rm <container_id_or_name>
+
+```
+
+Then, recreate the container using the appropriate `docker run` command.
