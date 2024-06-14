@@ -73,6 +73,41 @@ Docker version 20.10.7, build f0df350
 
 ```
 
+### Docker Compose Configuration for Keycloak and PostgreSQL
+
+This `docker-compose.yml` file sets up a Keycloak identity and access management server along with a PostgreSQL database. It ensures that Keycloak is accessible over both HTTP and HTTPS and properly configured to handle cross-origin requests and iframe embedding.
+
+### Services Configuration
+
+1. **Keycloak Service**
+    - **Image**: Uses the official Keycloak image from Quay.io.
+    - **Container Name**: The container is named `keycloak`.
+    - **Environment Variables**:
+        - `KEYCLOAK_ADMIN` and `KEYCLOAK_ADMIN_PASSWORD`: Sets the admin username and password for Keycloak.
+        - `KC_DB`, `KC_DB_URL`, `KC_DB_USERNAME`, `KC_DB_PASSWORD`: Configures Keycloak to connect to the PostgreSQL database.
+        - `KC_HOSTNAME`: Specifies the hostname for Keycloak.
+        - `KC_HOSTNAME_STRICT`: Disables strict hostname validation.
+        - `KC_HTTP_ENABLED`: Enables HTTP access (set to `"true"`).
+        - `KC_HTTPS_CERTIFICATE_FILE` and `KC_HTTPS_CERTIFICATE_KEY_FILE`: Paths to the SSL certificate and key for HTTPS.
+        - `KC_PROXY`: Configures Keycloak to work behind a reverse proxy (set to `edge`).
+        - `KC_CORS`: Enables Cross-Origin Resource Sharing (CORS) from any origin (set to `"*"`).
+        - `KC_X_FRAME_OPTIONS`: Sets the `X-Frame-Options` header to allow embedding from `https://keycloak.arunblog.org`.
+    - **Command**: Starts Keycloak in production mode.
+    - **Ports**: Maps container ports 8080 (HTTP) and 8443 (HTTPS) to the host.
+    - **Volumes**: Mounts local certificate files to the container.
+    - **Restart Policy**: Always restarts the container if it stops.
+    - **Depends On**: Ensures the PostgreSQL service is started before Keycloak.
+2. **PostgreSQL Service**
+    - **Image**: Uses the official PostgreSQL image.
+    - **Container Name**: The container is named `postgres`.
+    - **Environment Variables**:
+        - `POSTGRES_DB`: Sets the database name to `keycloak`.
+        - `POSTGRES_USER` and `POSTGRES_PASSWORD`: Configures the database user and password.
+    - **Volumes**: Mounts a volume to persist database data.
+    - **Ports**: Maps container port 5432 to the host.
+    - **Restart Policy**: Always restarts the container if it stops.
+3. **Volumes**:
+    - Defines a named volume `postgres_data` to persist PostgreSQL data.
 
 ### **Steps to Deploy Keycloak**
 
