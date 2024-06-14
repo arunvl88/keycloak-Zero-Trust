@@ -160,7 +160,7 @@ By following these steps, you will create a new client in Keycloak, configure it
 From the below link you can obtain Auth URL, Token URL, and Certificate URL. Client ID and Client secret were already otained in the previous step.
 
 ```arduino
-http://10.0.0.162:8080/realms/master/.well-known/openid-configuration
+http://10.0.0.162:8080/realms/myrealm/.well-known/openid-configuration
 ```
 
 Answer:
