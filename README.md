@@ -125,7 +125,7 @@ Docker version 20.10.7, build f0df350
         - **Valid Redirect URIs**: **`https://<your-team-name>.cloudflareaccess.com/cdn-cgi/access/callback`**
         - **Base URL**: The base URL of your application (e.g., **`http://localhost:8080`**).
         - **Admin URL**: If applicable, the admin URL for the client.
-        - **Web Origins**: Define allowed origins for CORS (Cross-Origin Resource Sharing) (e.g., **`http://localhost:8080`**).
+        - **Web Origins**: Define allowed origins for CORS (Cross-Origin Resource Sharing) (e.g., **`https://<your-team-name>.cloudflareaccess.com`**).
         - **Access Type**: Ensure it is set to **`confidential`**.
 6. **Enable Client Authentication:**
     - Scroll down to the **`Authentication`** section.
